@@ -1,5 +1,8 @@
 package com.movies.movieslist.auth;
 
+import com.movies.movieslist.user.RoleUser;
+import com.movies.movieslist.user.User;
+import com.movies.movieslist.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
