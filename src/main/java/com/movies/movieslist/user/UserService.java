@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,4 +29,10 @@ public class UserService implements UserDetailsService {
 
         return new org.springframework.security.core.userdetails.User(appUser.get().getUsername(),appUser.get().getPassword(),authorities);
     }
+
+    public List<User> getUsers(){
+        return userRepository.findAll();
+    }
+
+
 }
