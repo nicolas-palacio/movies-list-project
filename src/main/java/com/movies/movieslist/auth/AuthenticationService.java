@@ -1,5 +1,6 @@
 package com.movies.movieslist.auth;
 
+import com.movies.movieslist.config.JwtService;
 import com.movies.movieslist.user.RoleUser;
 import com.movies.movieslist.user.User;
 import com.movies.movieslist.user.UserRepository;
