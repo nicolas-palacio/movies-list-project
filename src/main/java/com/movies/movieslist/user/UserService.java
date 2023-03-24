@@ -1,5 +1,6 @@
 package com.movies.movieslist.user;
 
+import com.movies.movieslist.config.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
