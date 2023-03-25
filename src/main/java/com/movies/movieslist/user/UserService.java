@@ -34,5 +34,9 @@ public class UserService implements UserDetailsService {
         return userRepository.findAll();
     }
 
+    public int enableUser(String email){
+        return userRepository.enableAppUser(email);
+    }
+
 
 }
