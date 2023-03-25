@@ -33,6 +33,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(RoleUser.USER)
+                .enabled(false)
                 .build();
 
         var savedUser=repository.save(user);

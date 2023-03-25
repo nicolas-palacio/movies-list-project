@@ -25,6 +25,7 @@ public class UserRepositoryTests {
                 .lastname("Palacio")
                 .email("nicolas@gmail.com")
                 .password("secure126")
+                .enabled(false)
                 .build();
     }
 
@@ -37,14 +38,16 @@ public class UserRepositoryTests {
                 .lastname("Palacio")
                 .email("nicolas@gmail.com")
                 .password("secure126")
+                .enabled(false)
                 .build();
 
         //when
-        User savedUser=userRepository.save(userTest);
+        User savedUser=userRepository.save(user);
 
         //then
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getId()).isGreaterThan(0);
+        assertThat(savedUser.getEnabled()).isFalse();
 
     }
 
@@ -67,6 +70,7 @@ public class UserRepositoryTests {
         //then
         assertThat(users).isNotNull();
         assertThat(users.size()).isEqualTo(2);
+
 
     }
 
