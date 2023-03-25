@@ -28,7 +28,7 @@ public class UserRepositoryTests {
                 .build();
     }
 
-    @DisplayName("Test for save an user")
+    @DisplayName("Test to save an user")
     @Test
     void saveUserTest(){
         //give
@@ -48,7 +48,7 @@ public class UserRepositoryTests {
 
     }
 
-    @DisplayName("Test for list users")
+    @DisplayName("Test to list users")
     @Test
     void listUsersTest(){
         //give
