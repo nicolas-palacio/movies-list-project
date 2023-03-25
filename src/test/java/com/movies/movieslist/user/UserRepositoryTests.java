@@ -42,7 +42,7 @@ public class UserRepositoryTests {
                 .build();
 
         //when
-        User savedUser=userRepository.save(user);
+        User savedUser=userRepository.save(userTest);
 
         //then
         assertThat(savedUser).isNotNull();
