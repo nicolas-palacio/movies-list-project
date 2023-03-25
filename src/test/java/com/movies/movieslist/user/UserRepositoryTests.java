@@ -82,7 +82,7 @@ public class UserRepositoryTests {
         //then
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getId()).isEqualTo(user.getId());
-        
+
     }
 
 
