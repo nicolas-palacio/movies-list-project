@@ -1,6 +1,7 @@
 package com.movies.movieslist.auth;
 
 import com.movies.movieslist.config.JwtService;
+import com.movies.movieslist.token.Token;
 import com.movies.movieslist.user.RoleUser;
 import com.movies.movieslist.user.User;
 import com.movies.movieslist.user.UserRepository;
@@ -27,6 +28,7 @@ public class AuthenticationService {
                 .role(RoleUser.USER)
                 .build();
 
+        var savedUser=repository.save(user);
         var jwtToken=jwtService.generateToken(user);
 
         return AuthenticationResponse.builder().token(jwtToken).build();
@@ -43,6 +45,16 @@ public class AuthenticationService {
         var jwtToken=jwtService.generateToken(user);
 
         return AuthenticationResponse.builder().token(jwtToken).build();
+
+    }
+
+    private void saveUserToken(User user, String jwtToken){
+        var token= Token.builder()
+                .user(user)
+                .token(jwtToken)
+                .revoked(false)
+                .expired(false)
+                .build();
 
     }
 }

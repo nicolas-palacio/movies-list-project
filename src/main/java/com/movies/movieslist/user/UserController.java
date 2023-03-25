@@ -18,8 +18,8 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     @GetMapping
-    public ResponseEntity<String> getUsers(){
-        System.out.println("HEEEEEEEEEEEEEEEEEE");
-        return ResponseEntity.ok("HI HELLO");
+    public ResponseEntity<List<User>> getUsers(){
+
+        return ResponseEntity.ok(userService.getUsers());
     }
 }
