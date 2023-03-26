@@ -18,10 +18,10 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final static Logger LOGGER= LoggerFactory.getLogger(EmailService.class);
 
-    private final String LINK="http://localhost:8080/api/v1/registration/confirm?token=";
+    private final String LINK="http://localhost:8888/api/v1/registration/confirm?token=";
 
     @Async
-    public void send(String to, String email){
+    public void send(String to){
         try{
             MimeMessage mimeMessage= mailSender.createMimeMessage();
             MimeMessageHelper helper= new MimeMessageHelper(mimeMessage,"utf-8");
@@ -155,8 +155,8 @@ public class EmailService {
                 "        <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">\n" +
                 "          <tr>\n" +
                 "            <td align=\"center\" valign=\"top\" style=\"padding: 36px 24px;\">\n" +
-                "              <a href=\"https://www.blogdesire.com\" target=\"_blank\" style=\"display: inline-block;\">\n" +
-                "                <img src=\"https://cdn-icons-png.flaticon.com/512/6119/6119533.png\" alt=\"Logo\" border=\"0\" width=\"48\" style=\"display: block; width: 48px; max-width: 48px; min-width: 48px;\">\n" +
+                "              <a href=\"https://www.MOVIES.com\" target=\"_blank\" style=\"display: inline-block;\">\n" +
+                "                <img src=\"https://banner2.cleanpng.com/20190218/zse/kisspng-portable-network-graphics-film-vector-graphics-com-movie-ticket-svg-png-icon-free-download-125477-5c6b3dd11a8ac2.8354680615505320491087.jpg\" alt=\"Logo\" border=\"0\" width=\"48\" style=\"display: block; width: 48px; max-width: 48px; min-width: 48px;\">\n" +
                 "              </a>\n" +
                 "            </td>\n" +
                 "          </tr>\n" +
