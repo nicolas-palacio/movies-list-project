@@ -1,17 +1,22 @@
 package com.movies.movieslist.auth;
 
 import com.movies.movieslist.config.JwtService;
+import com.movies.movieslist.email.confirm_token.ConfirmationToken;
+import com.movies.movieslist.email.confirm_token.ConfirmationTokenService;
 import com.movies.movieslist.token.Token;
 import com.movies.movieslist.token.TokenRepository;
 import com.movies.movieslist.user.RoleUser;
 import com.movies.movieslist.user.User;
 import com.movies.movieslist.user.UserRepository;
+import com.movies.movieslist.user.UserService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 
 
 @Service
@@ -19,7 +24,11 @@ import org.springframework.stereotype.Service;
 
 public class AuthenticationService {
 
+    private final UserService userService;
+
     private final UserRepository repository;
+
+    private final ConfirmationTokenService confirmationTokenService;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -58,8 +67,6 @@ public class AuthenticationService {
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
 
-
-
     private void saveUserToken(User user, String jwtToken){
         var token= Token.builder()
                 .user(user)
@@ -69,5 +76,28 @@ public class AuthenticationService {
                 .build();
 
         tokenRepository.save(token);
+    }
+
+    @Transactional
+    public String confirmToken(String token) {
+        ConfirmationToken confirmationToken = confirmationTokenService
+                .getToken(token)
+                .orElseThrow(() ->
+                        new IllegalStateException("token not found"));
+
+        if (confirmationToken.getConfirmedAt() != null) {
+            throw new IllegalStateException("email already confirmed");
+        }
+
+        LocalDateTime expiredAt = confirmationToken.getExpiresAt();
+
+        if (expiredAt.isBefore(LocalDateTime.now())) {
+            throw new IllegalStateException("token expired");
+        }
+
+        confirmationTokenService.setConfirmedAt(token);
+        userService.enableUser(
+                confirmationToken.getUser().getEmail());
+        return "confirmed";
     }
 }

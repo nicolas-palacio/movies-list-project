@@ -4,10 +4,7 @@ package com.movies.movieslist.auth;
 import com.movies.movieslist.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -23,6 +20,11 @@ public class AuthenticationController {
         emailService.send(request.getEmail());
 
         return ResponseEntity.ok(authenticationService.register(request));
+    }
+
+    @GetMapping("/register/confirm")
+    public String confirm(@RequestParam("token") String token){
+        return authenticationService.confirmToken(token);
     }
 
     @PostMapping("/authenticate")
