@@ -1,6 +1,7 @@
 package com.movies.movieslist.auth;
 
 import com.movies.movieslist.config.JwtService;
+import com.movies.movieslist.email.EmailService;
 import com.movies.movieslist.email.confirm_token.ConfirmationToken;
 import com.movies.movieslist.email.confirm_token.ConfirmationTokenService;
 import com.movies.movieslist.token.Token;
@@ -21,7 +22,6 @@ import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
-
 public class AuthenticationService {
 
     private final UserService userService;
@@ -34,6 +34,8 @@ public class AuthenticationService {
     private final JwtService jwtService;
 
     private final AuthenticationManager authenticationManager;
+
+    private final EmailService emailService;
 
     public AuthenticationResponse register(RegisterRequest request) {
 
@@ -48,6 +50,7 @@ public class AuthenticationService {
         var savedUser=repository.save(user);
         var jwtToken=jwtService.generateToken(user);
         saveUserToken(savedUser,jwtToken);
+        emailService.send(request.getEmail(),jwtToken);
 
         return AuthenticationResponse.builder().token(jwtToken).build();
     }

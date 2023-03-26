@@ -18,10 +18,10 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final static Logger LOGGER= LoggerFactory.getLogger(EmailService.class);
 
-    private final String LINK="http://localhost:8888/api/v1/registration/confirm?token=";
+    private final String LINK="http://localhost:5500/index.html";//"http://localhost:8888/api/v1/registration/confirm?token=";
 
     @Async
-    public void send(String to){
+    public void send(String to,String token){
         try{
             MimeMessage mimeMessage= mailSender.createMimeMessage();
             MimeMessageHelper helper= new MimeMessageHelper(mimeMessage,"utf-8");

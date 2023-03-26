@@ -13,11 +13,11 @@ public class AuthenticationController {
 
     private final AuthenticationService authenticationService;
 
-    private final EmailService emailService;
+
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(@RequestBody RegisterRequest request){
-        emailService.send(request.getEmail());
+
 
         return ResponseEntity.ok(authenticationService.register(request));
     }
