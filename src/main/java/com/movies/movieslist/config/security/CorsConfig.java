@@ -6,7 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 public class CorsConfig {
 
-    @Bean
+   /* @Bean
     public WebMvcConfigurer getConfiguration() {
         return new WebMvcConfigurer() {
             @Override
@@ -14,5 +14,5 @@ public class CorsConfig {
                 registry.addMapping("/**").allowedOrigins("*");
             }
         };
-    }
+    }*/
 }
