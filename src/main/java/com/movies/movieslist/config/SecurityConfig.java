@@ -32,11 +32,11 @@ public class SecurityConfig {
          http
         .csrf()
         .disable()
-        .authorizeHttpRequests(requests-> requests
-                .requestMatchers(POST,"/api/v1/auth/**")
-                .permitAll()
-                .anyRequest()
-                .authenticated());
+        .authorizeHttpRequests().requestMatchers(POST,"/api/v1/auth/**").permitAll()
+                 .and()
+         .authorizeHttpRequests().requestMatchers(GET,"/api/v1/user/**").permitAll().anyRequest().authenticated();
+
+
         http.sessionManagement()
           .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
         .and()
