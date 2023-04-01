@@ -11,10 +11,10 @@ import javax.validation.constraints.NotNull;
 @AllArgsConstructor
 @Getter
 @Entity
-@Table(name = "movies")
+@Table(name = "movie")
 public class Movie {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    //@GeneratedValue//(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
     private String name;

@@ -32,7 +32,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private RoleUser role;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_movies", joinColumns = @JoinColumn(name="user_email", referencedColumnName = "email"),
             inverseJoinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"))
     private List<Movie> movies= new ArrayList<>();

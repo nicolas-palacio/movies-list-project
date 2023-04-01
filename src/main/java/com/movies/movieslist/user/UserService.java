@@ -1,8 +1,10 @@
 package com.movies.movieslist.user;
 
+import com.movies.movieslist.config.JwtService;
 import com.movies.movieslist.config.exceptions.NotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,6 +19,9 @@ import java.util.Optional;
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final MovieRepository movieRepository;
+
+    private final JwtService jwtService;
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> appUser = userRepository.findByEmail(email);
@@ -36,6 +41,20 @@ public class UserService implements UserDetailsService {
 
     public int enableUser(String email){
         return userRepository.enableAppUser(email);
+    }
+
+    public Movie addMovieToUser(Movie movie){
+        String email= SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User> user=userRepository.findByEmail(email);
+        Optional<Movie> savedMovie=movieRepository.findById(movie.getId());
+
+        if(savedMovie.isEmpty()){
+            movieRepository.save(movie);
+            user.get().getMovies().add(movie);
+            userRepository.save(user.get());
+        }
+
+        return movie;
     }
 
 
