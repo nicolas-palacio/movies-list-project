@@ -3,6 +3,7 @@ package com.movies.movieslist.auth;
 import com.movies.movieslist.config.JwtService;
 import com.movies.movieslist.email.EmailService;
 import com.movies.movieslist.email.confirm_token.ConfirmationToken;
+import com.movies.movieslist.email.confirm_token.ConfirmationTokenRepository;
 import com.movies.movieslist.email.confirm_token.ConfirmationTokenService;
 import com.movies.movieslist.token.Token;
 import com.movies.movieslist.token.TokenRepository;
@@ -29,6 +30,7 @@ public class AuthenticationService {
     private final UserRepository repository;
 
     private final ConfirmationTokenService confirmationTokenService;
+    private final ConfirmationTokenRepository confirmationTokenRepository;
     private final TokenRepository tokenRepository;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
@@ -49,7 +51,8 @@ public class AuthenticationService {
 
         var savedUser=repository.save(user);
         var jwtToken=jwtService.generateToken(user);
-        saveUserToken(savedUser,jwtToken);
+       // saveUserToken(savedUser,jwtToken);
+        saveUserTokenConfirmation(savedUser,jwtToken);
         emailService.send(request.getEmail(),jwtToken);
 
         return AuthenticationResponse.builder().token(jwtToken).build();
@@ -81,7 +84,14 @@ public class AuthenticationService {
         tokenRepository.save(token);
     }
 
-    @Transactional
+    private void saveUserTokenConfirmation(User user,String jwtToken){
+        var token=new ConfirmationToken(jwtToken,LocalDateTime.now(),LocalDateTime.now().plusMinutes(15),user);
+
+        confirmationTokenRepository.save(token);
+
+    }
+
+    //@Transactional
     public String confirmToken(String token) {
         ConfirmationToken confirmationToken = confirmationTokenService
                 .getToken(token)
@@ -101,6 +111,7 @@ public class AuthenticationService {
         confirmationTokenService.setConfirmedAt(token);
         userService.enableUser(
                 confirmationToken.getUser().getEmail());
+
         return "confirmed";
     }
 }
