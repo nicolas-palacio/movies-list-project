@@ -13,6 +13,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
@@ -29,12 +30,14 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+        http.cors().configurationSource(request -> new CorsConfiguration().applyPermitDefaultValues());
+
          http
         .csrf()
         .disable()
-        .authorizeHttpRequests().requestMatchers(POST,"/api/v1/auth/**").permitAll()
+        .authorizeHttpRequests().requestMatchers(GET,"/api/v1/user/**").permitAll()
                  .and()
-         .authorizeHttpRequests().requestMatchers(GET,"/api/v1/user/**").permitAll().anyRequest().authenticated();
+         .authorizeHttpRequests().requestMatchers(GET,"/api/v1/user/").permitAll().anyRequest().authenticated();
 
 
         http.sessionManagement()
