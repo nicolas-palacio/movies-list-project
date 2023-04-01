@@ -1,6 +1,7 @@
 package com.movies.movieslist.user;
 
 
+import com.movies.movieslist.user.util.UserInfoResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
@@ -22,9 +23,11 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public ResponseEntity<HttpStatus> getUsers(){
+    public ResponseEntity<UserInfoResponse> getUserInfo(){
+        UserInfoResponse userInfo=null;
+        
 
-        return ResponseEntity.ok(HttpStatus.OK);
+        return new ResponseEntity<>(userInfo,HttpStatus.ACCEPTED);
         //userService.getUsers()
     }
 

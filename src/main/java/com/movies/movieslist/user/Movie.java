@@ -14,7 +14,6 @@ import javax.validation.constraints.NotNull;
 @Table(name = "movie")
 public class Movie {
     @Id
-    //@GeneratedValue//(strategy = GenerationType.AUTO)
     private Long id;
     @NotNull
     private String name;
