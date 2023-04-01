@@ -7,6 +7,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -31,8 +32,15 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private RoleUser role;
 
+    @ManyToMany
+    @JoinTable(name = "user_movies", joinColumns = @JoinColumn(name="user_email", referencedColumnName = "email"),
+            inverseJoinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"))
+    private List<Movie> movies= new ArrayList<>();
+    private float hoursViewed;
+
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
 
     private Boolean enabled=false;
 
