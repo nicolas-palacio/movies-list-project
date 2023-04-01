@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @OpenAPIDefinition(info = @Info(title = "Movie List - API", version = "1.0.0"))
-@SecurityScheme(name = "BearerJWT",type= SecuritySchemeType.HTTP,scheme = "bearer",bearerFormat ="JWT",description = "JWT Token Security.")
+@SecurityScheme(name = "BearerJWT",type= SecuritySchemeType.HTTP,scheme = "bearer",bearerFormat ="JWT",description = "JWT Security.")
 public class MoviesListApplication {
 
 	public static void main(String[] args) {
