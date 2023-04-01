@@ -2,6 +2,7 @@ package com.movies.movieslist.user;
 
 import com.movies.movieslist.config.JwtService;
 import com.movies.movieslist.config.exceptions.NotFoundException;
+import com.movies.movieslist.user.util.UserInfoResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,6 +34,14 @@ public class UserService implements UserDetailsService {
         authorities.add(new SimpleGrantedAuthority(appUser.get().getRole().toString()));
 
         return new org.springframework.security.core.userdetails.User(appUser.get().getUsername(),appUser.get().getPassword(),authorities);
+    }
+
+    public UserInfoResponse getUserInfo(){
+        String email= SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User> user=userRepository.findByEmail(email);
+        UserInfoResponse userInfo=new UserInfoResponse(user.get().getFirstname(),user.get().getLastname(),user.get().getEmail(),user.get().getCountry(),user.get().getMovies(),user.get().getHoursViewed());
+
+        return userInfo;
     }
 
     public List<User> getUsers(){
