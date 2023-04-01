@@ -35,9 +35,11 @@ public class SecurityConfig {
          http
         .csrf()
         .disable()
-        .authorizeHttpRequests().requestMatchers(GET,"/api/v1/user/**").permitAll()
-                 .and()
-         .authorizeHttpRequests().requestMatchers(GET,"/api/v1/user/").permitAll().anyRequest().authenticated();
+        .authorizeHttpRequests()
+                 .requestMatchers(GET,"/api/v1/user/**").permitAll()
+                 .requestMatchers(POST,"/api/v1/auth/**").permitAll()
+                 .requestMatchers(GET,"/api/v1/auth/**").permitAll()
+                 .anyRequest().authenticated();
 
 
         http.sessionManagement()
