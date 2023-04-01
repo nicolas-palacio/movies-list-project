@@ -38,6 +38,8 @@ public class SecurityConfig {
         .authorizeHttpRequests()
                  //.requestMatchers(GET,"/api/v1/user/**").permitAll()
                  .requestMatchers(POST,"/api/v1/auth/**").permitAll()
+                 .requestMatchers(GET,"/api-docs","/api-docs/**").permitAll()
+                 .requestMatchers(GET,"/movie-list-api.html","/swagger-ui/**").permitAll()
                  .requestMatchers(GET,"/api/v1/auth/**").permitAll()
                  .anyRequest().authenticated();
 
