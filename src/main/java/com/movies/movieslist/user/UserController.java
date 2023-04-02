@@ -40,13 +40,13 @@ public class UserController {
     @Operation(summary = "Post a movie on the list of the user.",tags = {"User"})
     @PostMapping("/add-movie")
     @ResponseBody
-    public ResponseEntity<Object> addMovieToUser(@RequestBody Movie movie){
+    public ResponseEntity<Movie> addMovieToUser(@RequestBody Movie movie){
         Movie movieToAdd=null;
         if(SecurityContextHolder.getContext().getAuthentication()!=null){
             movieToAdd=userService.addMovieToUser(movie);
        }
 
-        return new ResponseEntity<Object>(movieToAdd,HttpStatus.OK);
+        return new ResponseEntity<>(movieToAdd,HttpStatus.OK);
     }
 
 }
