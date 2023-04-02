@@ -47,8 +47,8 @@ public class UserService implements UserDetailsService {
     public List<Movie> getUserMovies(){
         String email= SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> user=userRepository.findByEmail(email);
-        UserInfoResponse userInfo=new UserInfoResponse(user.get().getFirstname(),user.get().getLastname(),user.get().getEmail(),user.get().getCountry(),user.get().getMovies(),user.get().getHoursViewed());
-        List<Movie> movies=userInfo.getMovies();
+
+        List<Movie> movies=user.get().getMovies();
 
         return movies;
 
