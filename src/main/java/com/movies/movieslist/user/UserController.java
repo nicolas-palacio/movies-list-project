@@ -21,7 +21,7 @@ public class UserController {
     @Operation(summary = "Return the info of the user.",tags = {"User"})
     @GetMapping("/info")
     @ResponseBody
-    public ResponseEntity<Object> getUserInfo(){
+    public ResponseEntity<UserInfoResponse> getUserInfo(){
         UserInfoResponse userInfo=userService.getUserInfo();
 
         return  new ResponseEntity<>(userInfo,HttpStatus.OK);
