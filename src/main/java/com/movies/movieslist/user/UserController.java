@@ -8,6 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
@@ -20,6 +22,13 @@ public class UserController {
         UserInfoResponse userInfo=userService.getUserInfo();
 
         return  new ResponseEntity<>(userInfo,HttpStatus.OK);
+    }
+
+    @GetMapping("/list")
+    public ResponseEntity<List<Movie>> getUserList(){
+        List<Movie> userMovies=userService.getUserMovies();
+
+        return  new ResponseEntity<>(userMovies,HttpStatus.OK);
     }
 
     @PostMapping("/addMovie")
