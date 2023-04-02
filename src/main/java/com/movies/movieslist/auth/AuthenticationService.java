@@ -44,7 +44,11 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         if(!emailValidator.test(request.getEmail())){
-            throw new BadRequestException("Invalid email");
+            throw new BadRequestException("Invalid email or already taken");
+        }
+
+        if(request.getPassword().length()<8){
+            throw new BadRequestException("The password length must have at least 8 characters");
         }
 
         var user= User.builder().firstname(request.getFirstname())
