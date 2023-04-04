@@ -41,11 +41,11 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-    @Operation(summary = "Login of the user.",tags = {"Authentication"})
+    @Operation(summary = "Refresh the token of an user already authenticated.",tags = {"Authentication"})
     @GetMapping("/token/refresh")
-    public String refreshToken(){
-        
-        return "";
+    public ResponseEntity<String> refreshToken(){
+
+        return ResponseEntity.ok(authenticationService.refreshToken());
     }
 
 }

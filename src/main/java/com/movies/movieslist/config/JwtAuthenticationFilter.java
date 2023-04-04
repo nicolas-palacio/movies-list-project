@@ -48,11 +48,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
 
             if(jwtService.isTokenValid(jwt,userDetails)){
-                if(jwtService.isTokenExpired(jwt)){
+                if(jwtService.isTokenExpired(jwt) && !request.getServletPath().equals("/api/v1/auth/token/refresh'")){
                     throw new UnauthorizedException("Token expired");
                 }
-
-
 
                 UsernamePasswordAuthenticationToken authToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

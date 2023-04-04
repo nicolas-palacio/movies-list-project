@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -74,7 +75,7 @@ public class AuthenticationService {
         var jwtToken=jwtService.generateToken(user);
 
         saveUserTokenConfirmation(savedUser,jwtToken);
-        //emailService.send(request.getEmail(),jwtToken);
+        emailService.send(request.getEmail(),jwtToken);
 
         return AuthenticationResponse.builder().token(jwtToken).build();
     }
@@ -143,6 +144,23 @@ public class AuthenticationService {
                 confirmationToken.getUser().getEmail());
 
         return "confirmed";
+    }
+
+    public String refreshToken(){
+        if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
+            throw new ForbiddenException("User not authenticated");
+        }
+
+        System.out.println("EEEEEEEEEEEEEEEEEEE"+SecurityContextHolder.getContext().getAuthentication().getName() );
+
+
+        String email= SecurityContextHolder.getContext().getAuthentication().getName();
+
+        var user = userRepository.findByEmail(email).orElseThrow();
+        var jwtToken=jwtService.generateToken(user);
+        saveUserToken(user,jwtToken);
+
+        return jwtToken;
     }
 
     private boolean validateUsernameLenght(String username){
