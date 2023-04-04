@@ -45,7 +45,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         jwt=authHeader.substring(7);
         userEmail=jwtService.extractUsername(jwt);
-        
+
         Token jwtUser= tokenRepository.findByToken(jwt).get();
         if(jwtUser.isExpired()){
             throw new UnauthorizedException("User not logged");

@@ -12,8 +12,8 @@ import java.util.List;
 @Getter
 public class UserInfoResponse {
 
-    private String firstname;
-    private String lastname;
+    private String username;
+
     private String email;
 
     private String country;
