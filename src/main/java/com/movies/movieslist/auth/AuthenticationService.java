@@ -150,8 +150,6 @@ public class AuthenticationService {
     }
 
     private boolean validateUsernameChars(String username){
-
-
         return StringUtils.isAlphanumeric(username);
     }
 }

@@ -70,6 +70,7 @@ public class UserService implements UserDetailsService {
         if(savedMovie.isEmpty()){
             movieRepository.save(movie);
             user.get().getMovies().add(movie);
+            user.get().setHoursViewed(user.get().getHoursViewed()+movie.getDuration());
             userRepository.save(user.get());
         }
 
