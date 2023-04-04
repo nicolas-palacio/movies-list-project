@@ -15,6 +15,7 @@ import com.movies.movieslist.user.User;
 import com.movies.movieslist.user.UserRepository;
 import com.movies.movieslist.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -53,7 +54,7 @@ public class AuthenticationService {
         }
 
         if(validateUsernameChars(request.getUsername())){
-            throw new BadRequestException("Username may only contain alphanumeric characters or single hyphens");
+            throw new BadRequestException("Username may only contain alphanumeric characters");
         }
 
 
@@ -151,6 +152,6 @@ public class AuthenticationService {
     private boolean validateUsernameChars(String username){
 
 
-        return username.contains(".") || username.contains("@") || username.contains("|");
+        return StringUtils.isAlphanumeric(username);
     }
 }
