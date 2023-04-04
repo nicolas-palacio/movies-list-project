@@ -1,5 +1,6 @@
 package com.movies.movieslist.config;
 
+import com.movies.movieslist.config.exceptions.UnauthorizedException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,6 +43,10 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
+            if(jwtService.isTokenExpired(jwt)){
+                throw new UnauthorizedException("Token expired");
+            }
+
         }
         filterChain.doFilter(request,response);
 
