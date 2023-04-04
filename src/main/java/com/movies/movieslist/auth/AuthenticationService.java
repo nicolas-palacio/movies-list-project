@@ -55,8 +55,7 @@ public class AuthenticationService {
             throw new BadRequestException("The password length must have at least 8 characters");
         }
 
-        var user= User.builder().firstname(request.getFirstname())
-                .lastname(request.getLastname())
+        var user= User.builder().username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(RoleUser.USER)
