@@ -52,6 +52,10 @@ public class AuthenticationService {
             throw new BadRequestException("Username is too long (maximum is 15 characters)");
         }
 
+        if(validateUsernameChars(request.getUsername())){
+            throw new BadRequestException("Username may only contain alphanumeric characters or single hyphens");
+        }
+
 
         if(request.getPassword().length()<8){
             throw new BadRequestException("The password length must have at least 8 characters");
@@ -142,5 +146,11 @@ public class AuthenticationService {
 
     private boolean validateUsernameLenght(String username){
         return username.length()>15;
+    }
+
+    private boolean validateUsernameChars(String username){
+
+
+        return username.contains(".") || username.contains("@") || username.contains("|");
     }
 }
