@@ -49,15 +49,7 @@ public class AuthenticationService {
         if(!emailValidator.test(request.getEmail())){
             throw new BadRequestException("Invalid email or already taken");
         }
-
-        if(validateUsernameLenght(request.getUsername())){
-            throw new BadRequestException("Username is too long (maximum is 15 characters)");
-        }
-
-        if(validateUsernameChars(request.getUsername())){
-            throw new BadRequestException("Username may only contain alphanumeric characters");
-        }
-
+        validateUsername(request);
 
         if(request.getPassword().length()<8){
             throw new BadRequestException("The password length must have at least 8 characters");
@@ -78,6 +70,16 @@ public class AuthenticationService {
         emailService.send(request.getEmail(),jwtToken);
 
         return AuthenticationResponse.builder().token(jwtToken).build();
+    }
+
+    private void validateUsername(RegisterRequest request) {
+        if(validateUsernameLenght(request.getUsername())){
+            throw new BadRequestException("Username is too long (maximum is 15 characters)");
+        }
+
+        if(validateUsernameChars(request.getUsername())){
+            throw new BadRequestException("Username may only contain alphanumeric characters");
+        }
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -150,9 +152,6 @@ public class AuthenticationService {
         if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
             throw new ForbiddenException("User not authenticated");
         }
-
-        System.out.println("EEEEEEEEEEEEEEEEEEE"+SecurityContextHolder.getContext().getAuthentication().getName() );
-
 
         String email= SecurityContextHolder.getContext().getAuthentication().getName();
 
