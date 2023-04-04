@@ -2,6 +2,8 @@ package com.movies.movieslist.config;
 
 import com.movies.movieslist.config.exceptions.ForbiddenException;
 import com.movies.movieslist.config.exceptions.UnauthorizedException;
+import com.movies.movieslist.user.User;
+import com.movies.movieslist.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,11 +19,15 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserDetailsService userDetailsService;
+
+    private final UserRepository userRepository;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
@@ -39,19 +45,19 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         userEmail=jwtService.extractUsername(jwt);
         if(userEmail !=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails userDetails= this.userDetailsService.loadUserByUsername(userEmail);
+
+
             if(jwtService.isTokenValid(jwt,userDetails)){
                 if(jwtService.isTokenExpired(jwt)){
                     throw new UnauthorizedException("Token expired");
                 }
-                if(!userDetails.isEnabled()){
-                    throw new ForbiddenException("Email not confirmed");
-                }
+
+
 
                 UsernamePasswordAuthenticationToken authToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
-
         }
         filterChain.doFilter(request,response);
 
