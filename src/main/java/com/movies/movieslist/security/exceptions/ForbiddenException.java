@@ -1,4 +1,4 @@
-package com.movies.movieslist.config.exceptions;
+package com.movies.movieslist.security.exceptions;
 
 public class ForbiddenException extends RuntimeException{
     private static final String DESCRIPTION= "Forbidden (403)";

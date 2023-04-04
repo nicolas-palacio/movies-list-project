@@ -1,4 +1,4 @@
-package com.movies.movieslist.config;
+package com.movies.movieslist.security;
 
 import com.movies.movieslist.user.UserRepository;
 import lombok.RequiredArgsConstructor;

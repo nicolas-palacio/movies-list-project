@@ -1,7 +1,7 @@
 package com.movies.movieslist.user;
 
-import com.movies.movieslist.config.JwtService;
-import com.movies.movieslist.config.exceptions.NotFoundException;
+import com.movies.movieslist.security.JwtService;
+import com.movies.movieslist.security.exceptions.NotFoundException;
 import com.movies.movieslist.user.util.UserInfoResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

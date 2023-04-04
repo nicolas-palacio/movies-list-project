@@ -1,9 +1,9 @@
 package com.movies.movieslist.auth;
 
 import com.movies.movieslist.auth.util.EmailValidator;
-import com.movies.movieslist.config.JwtService;
-import com.movies.movieslist.config.exceptions.BadRequestException;
-import com.movies.movieslist.config.exceptions.ForbiddenException;
+import com.movies.movieslist.security.JwtService;
+import com.movies.movieslist.security.exceptions.BadRequestException;
+import com.movies.movieslist.security.exceptions.ForbiddenException;
 import com.movies.movieslist.email.EmailService;
 import com.movies.movieslist.email.confirm_token.ConfirmationToken;
 import com.movies.movieslist.email.confirm_token.ConfirmationTokenRepository;

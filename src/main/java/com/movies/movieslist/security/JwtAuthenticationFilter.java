@@ -1,8 +1,6 @@
-package com.movies.movieslist.config;
+package com.movies.movieslist.security;
 
-import com.movies.movieslist.config.exceptions.ForbiddenException;
-import com.movies.movieslist.config.exceptions.UnauthorizedException;
-import com.movies.movieslist.user.User;
+import com.movies.movieslist.security.exceptions.UnauthorizedException;
 import com.movies.movieslist.user.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -19,7 +17,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor

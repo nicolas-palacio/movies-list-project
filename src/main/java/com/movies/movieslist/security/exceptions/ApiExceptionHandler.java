@@ -1,4 +1,4 @@
-package com.movies.movieslist.config.exceptions;
+package com.movies.movieslist.security.exceptions;
 
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.data.crossstore.ChangeSetPersister;

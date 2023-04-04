@@ -1,4 +1,4 @@
-package com.movies.movieslist.config.exceptions;
+package com.movies.movieslist.security.exceptions;
 
 public class UnauthorizedException extends RuntimeException{
     private static final String DESCRIPTION= "Unauthorized (401)";

@@ -1,4 +1,4 @@
-package com.movies.movieslist.config;
+package com.movies.movieslist.security;
 
 
 import io.jsonwebtoken.Claims;
