@@ -48,6 +48,11 @@ public class AuthenticationService {
             throw new BadRequestException("Invalid email or already taken");
         }
 
+        if(validateUsernameLenght(request.getUsername())){
+            throw new BadRequestException("Username is too long (maximum is 15 characters)");
+        }
+
+
         if(request.getPassword().length()<8){
             throw new BadRequestException("The password length must have at least 8 characters");
         }
@@ -133,5 +138,9 @@ public class AuthenticationService {
                 confirmationToken.getUser().getEmail());
 
         return "confirmed";
+    }
+
+    private boolean validateUsernameLenght(String username){
+        return username.length()>15;
     }
 }
