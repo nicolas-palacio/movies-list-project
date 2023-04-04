@@ -55,6 +55,10 @@ public class AuthenticationService {
             throw new BadRequestException("The password length must have at least 8 characters");
         }
 
+        if(!request.getPassword().equals(request.getPasswordConfirm())){
+            throw new BadRequestException("The passwords are different");
+        }
+
         var user= User.builder().username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
