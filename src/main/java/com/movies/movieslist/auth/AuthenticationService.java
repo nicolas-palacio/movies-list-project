@@ -76,6 +76,12 @@ public class AuthenticationService {
     }
 
     private void validateUsername(RegisterRequest request) {
+        Optional<User> user=userRepository.findByUsername(request.getUsername());
+
+        if(!user.isEmpty()){
+            throw new BadRequestException("Username already taken");
+        }
+
         if(validateUsernameLenght(request.getUsername())){
             throw new BadRequestException("Username is too long (maximum is 15 characters)");
         }
