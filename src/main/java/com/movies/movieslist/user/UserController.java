@@ -1,5 +1,6 @@
 package com.movies.movieslist.user;
 
+import com.movies.movieslist.movie.Movie;
 import com.movies.movieslist.user.util.UserInfoResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;

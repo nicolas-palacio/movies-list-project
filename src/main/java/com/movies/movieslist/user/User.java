@@ -1,5 +1,6 @@
 package com.movies.movieslist.user;
 
+import com.movies.movieslist.movie.Movie;
 import com.movies.movieslist.token.Token;
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,4 +1,4 @@
-package com.movies.movieslist.user;
+package com.movies.movieslist.movie;
 
 import jakarta.persistence.*;
 import lombok.*;

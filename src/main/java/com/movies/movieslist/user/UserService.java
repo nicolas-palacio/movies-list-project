@@ -1,5 +1,7 @@
 package com.movies.movieslist.user;
 
+import com.movies.movieslist.movie.Movie;
+import com.movies.movieslist.movie.MovieRepository;
 import com.movies.movieslist.security.JwtService;
 import com.movies.movieslist.security.exceptions.NotFoundException;
 import com.movies.movieslist.user.util.UserInfoResponse;

@@ -1,6 +1,6 @@
 package com.movies.movieslist.user.util;
 
-import com.movies.movieslist.user.Movie;
+import com.movies.movieslist.movie.Movie;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
