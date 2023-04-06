@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Table(name = "movie")
 public class Movie {
     @Id
+    @Column(unique = true)
     private Long id;
     @NotNull
     private String name;
