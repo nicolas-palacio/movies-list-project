@@ -46,7 +46,6 @@ public class AuthenticationService {
     private final EmailValidator emailValidator;
 
     public AuthenticationResponse register(RegisterRequest request) {
-        System.out.println("EEEEEEEEEEEEEEEEEEEE  "+requestIsEmpty(request)+ "    "+request.getUsername().isEmpty());
         if(requestIsEmpty(request)){
             throw new BadRequestException("All inputs are empty");
         }
