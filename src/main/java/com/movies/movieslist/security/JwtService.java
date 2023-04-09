@@ -1,6 +1,7 @@
 package com.movies.movieslist.security;
 
 
+import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -17,7 +18,8 @@ import java.util.function.Function;
 
 @Service
 public class JwtService {
-    private static final String SECRET_KEY="217A25432A462D4A614E645267556B58703273357638782F413F4428472B4B62";
+    //private static final String SECRET_KEY="217A25432A462D4A614E645267556B58703273357638782F413F4428472B4B62";
+    private Dotenv dotenv;
     public String extractUsername(String token){
 
         return exctractClaim(token,Claims::getSubject);
@@ -66,7 +68,11 @@ public class JwtService {
     }
 
     private Key getSignKey() {
-        byte[] keyBytes= Decoders.BASE64.decode(SECRET_KEY);
+        dotenv = Dotenv
+                .configure()
+                .filename("env.properties")
+                .load();
+        byte[] keyBytes= Decoders.BASE64.decode(dotenv.get("SECRET_KEY").toString());
 
         return Keys.hmacShaKeyFor(keyBytes);
     }
