@@ -113,6 +113,8 @@ public class UserService implements UserDetailsService {
             }
         }
 
+        userRepository.save(updateUser.get());
+
         return userRepository.findByEmail(updateInfo.getEmail()).get();
 
     }

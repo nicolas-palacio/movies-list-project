@@ -2,6 +2,7 @@ package com.movies.movieslist.user;
 
 import com.movies.movieslist.movie.Movie;
 import com.movies.movieslist.user.util.UserInfoResponse;
+import com.movies.movieslist.user.util.UserUpdateInfoRequest;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -48,6 +49,14 @@ public class UserController {
        }
 
         return new ResponseEntity<>(movieToAdd,HttpStatus.OK);
+    }
+
+    @Operation(summary = "Update the info of the user.",tags = {"User"})
+    @PutMapping
+    @ResponseBody
+    public ResponseEntity<User> putUser(@RequestBody UserUpdateInfoRequest userUpdateInfoRequest){
+        
+        return new ResponseEntity<>(userService.putUserInfo(userUpdateInfoRequest),HttpStatus.OK);
     }
 
 }
