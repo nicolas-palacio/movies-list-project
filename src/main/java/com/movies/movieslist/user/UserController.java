@@ -54,9 +54,11 @@ public class UserController {
     @Operation(summary = "Update the info of the user.",tags = {"User"})
     @PutMapping
     @ResponseBody
-    public ResponseEntity<User> putUser(@RequestBody UserUpdateInfoRequest userUpdateInfoRequest){
+    public ResponseEntity<UserInfoResponse> putUser(@RequestBody UserUpdateInfoRequest userUpdateInfoRequest){
+        userService.putUserInfo(userUpdateInfoRequest);
+        UserInfoResponse userInfo=userService.getUserInfo();
 
-        return new ResponseEntity<>(userService.putUserInfo(userUpdateInfoRequest),HttpStatus.OK);
+        return new ResponseEntity<>(userInfo,HttpStatus.OK);
     }
 
 }
