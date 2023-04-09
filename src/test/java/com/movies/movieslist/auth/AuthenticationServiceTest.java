@@ -1,6 +1,9 @@
-package com.movies.movieslist.user;
+package com.movies.movieslist.auth;
 
 
+import com.movies.movieslist.user.User;
+import com.movies.movieslist.user.UserRepository;
+import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -14,13 +17,12 @@ import java.util.Optional;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-public class UserServiceTests {
+public class AuthenticationServiceTest {
     @Mock
     private UserRepository userRepository;
 
     @InjectMocks
-    private UserService userService;
-
+    private AuthenticationService authenticationService;
     private User user;
 
     @BeforeEach
@@ -33,5 +35,21 @@ public class UserServiceTests {
                 .build();
     }
 
+    @DisplayName("Test to save an user")
+    @Test
+    void registerUserTest(){
+        //given
+       RegisterRequest registerRequest=new RegisterRequest("nicolaspalacio","nicolas@gmail.com","Argentina","secure123","secure123");
 
+        //when
+        authenticationService.register(registerRequest);
+        User savedUser=userRepository.findByEmail(registerRequest.getEmail()).get();
+
+        //then
+        assertThat(savedUser).isNotNull();
+
+
+
+
+    }
 }

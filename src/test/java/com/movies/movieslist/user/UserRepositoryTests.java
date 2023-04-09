@@ -21,8 +21,7 @@ public class UserRepositoryTests {
     @BeforeEach
     void setup(){
         this.user=User.builder()
-                .firstname("Nicolas")
-                .lastname("Palacio")
+                .username("nicolaspalacio")
                 .email("nicolas@gmail.com")
                 .password("secure126")
                 .enabled(false)
@@ -34,8 +33,7 @@ public class UserRepositoryTests {
     void saveUserTest(){
         //give
         User userTest=User.builder()
-                .firstname("Nicolas")
-                .lastname("Palacio")
+                .username("nicolaspalacio")
                 .email("nicolas@gmail.com")
                 .password("secure126")
                 .enabled(false)
@@ -56,8 +54,7 @@ public class UserRepositoryTests {
     void listUsersTest(){
         //give
         User userTest=User.builder()
-                .firstname("Nicolas")
-                .lastname("Palacio")
+                .username("eze001")
                 .email("nicolas@gmail.com")
                 .password("secure126")
                 .build();
