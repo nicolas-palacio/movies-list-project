@@ -137,7 +137,7 @@ public class UserService implements UserDetailsService {
             throw new BadRequestException("Username is too long (maximum is 15 characters)");
         }
 
-        if(validateUsernameChars(username)){
+        if(!validateUsernameChars(username)){
             throw new BadRequestException("Username may only contain alphanumeric characters");
         }
 

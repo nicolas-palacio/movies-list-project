@@ -86,7 +86,7 @@ public class AuthenticationService {
             throw new BadRequestException("Username is too long (maximum is 15 characters)");
         }
 
-        if(validateUsernameChars(request.getUsername())){
+        if(!validateUsernameChars(request.getUsername())){
             throw new BadRequestException("Username may only contain alphanumeric characters");
         }
     }
