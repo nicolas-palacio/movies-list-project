@@ -51,10 +51,14 @@ public class AuthenticationService {
         }
 
         validateUsername(request);
+
         if(!emailValidator.test(request.getEmail())){
             throw new BadRequestException("Invalid email or already taken");
         }
 
+        if(request.getCountry().isEmpty()){
+            throw new BadRequestException("You must provide your country");
+        }
 
         if(request.getPassword().length()<8){
             throw new BadRequestException("The password length must have at least 8 characters");
