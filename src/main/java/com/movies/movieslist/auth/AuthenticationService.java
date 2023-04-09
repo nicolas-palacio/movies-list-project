@@ -46,10 +46,16 @@ public class AuthenticationService {
     private final EmailValidator emailValidator;
 
     public AuthenticationResponse register(RegisterRequest request) {
+        System.out.println("EEEEEEEEEEEEEEEEEEEE  "+requestIsEmpty(request)+ "    "+request.getUsername().isEmpty());
+        if(requestIsEmpty(request)){
+            throw new BadRequestException("All inputs are empty");
+        }
+
+        validateUsername(request);
         if(!emailValidator.test(request.getEmail())){
             throw new BadRequestException("Invalid email or already taken");
         }
-        validateUsername(request);
+
 
         if(request.getPassword().length()<8){
             throw new BadRequestException("The password length must have at least 8 characters");
@@ -73,6 +79,11 @@ public class AuthenticationService {
         emailService.send(request.getEmail(),jwtToken);
 
         return AuthenticationResponse.builder().token(jwtToken).build();
+    }
+
+    private boolean requestIsEmpty(RegisterRequest request) {
+        return request.getUsername().isEmpty() && request.getPassword().isEmpty()  && request.getCountry().isEmpty() &&
+                request.getEmail().isEmpty()  && request.getPasswordConfirm().isEmpty() ;
     }
 
     private void validateUsername(RegisterRequest request) {
