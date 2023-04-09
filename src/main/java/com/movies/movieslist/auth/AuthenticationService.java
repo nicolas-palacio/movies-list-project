@@ -47,7 +47,7 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         if(requestIsEmpty(request)){
-            throw new BadRequestException("All inputs are empty");
+            throw new BadRequestException("All inputs are required");
         }
 
         validateUsername(request);
@@ -57,11 +57,11 @@ public class AuthenticationService {
         }
 
         if(request.getCountry().isEmpty()){
-            throw new BadRequestException("You must provide your country");
+            throw new BadRequestException("Please provide your country");
         }
 
         if(request.getPassword().length()<8){
-            throw new BadRequestException("The password length must have at least 8 characters");
+            throw new BadRequestException("Minimum length is 8 characters");
         }
 
         if(!request.getPassword().equals(request.getPasswordConfirm())){
@@ -101,7 +101,7 @@ public class AuthenticationService {
         }
 
         if(!validateUsernameChars(request.getUsername())){
-            throw new BadRequestException("Username may only contain alphanumeric characters");
+            throw new BadRequestException("Please create a username with only alphanumeric characters");
         }
     }
 

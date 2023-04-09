@@ -1,6 +1,7 @@
 package com.movies.movieslist.auth;
 
 
+import com.movies.movieslist.auth.util.EmailValidator;
 import com.movies.movieslist.user.User;
 import com.movies.movieslist.user.UserRepository;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,11 +22,14 @@ public class AuthenticationServiceTest {
     @Mock
     private UserRepository userRepository;
 
+    @Mock
+    private EmailValidator emailValidator;
+
     @InjectMocks
     private AuthenticationService authenticationService;
     private User user;
 
-    @BeforeEach
+
     void setup(){
         this.user=User.builder()
                 .username("nicolaspalacio")
@@ -39,7 +43,7 @@ public class AuthenticationServiceTest {
     @Test
     void registerUserTest(){
         //given
-       RegisterRequest registerRequest=new RegisterRequest("nicolaspalacio","nicolas@gmail.com","Argentina","secure123","secure123");
+       RegisterRequest registerRequest=new RegisterRequest("nicolas2023","nico.p22013@gmail.com","Argentina","secure123","secure123");
 
         //when
         authenticationService.register(registerRequest);
