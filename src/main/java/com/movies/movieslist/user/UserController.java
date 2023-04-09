@@ -55,7 +55,7 @@ public class UserController {
     @PutMapping
     @ResponseBody
     public ResponseEntity<User> putUser(@RequestBody UserUpdateInfoRequest userUpdateInfoRequest){
-        
+
         return new ResponseEntity<>(userService.putUserInfo(userUpdateInfoRequest),HttpStatus.OK);
     }
 

@@ -87,25 +87,31 @@ public class UserService implements UserDetailsService {
     }
 
     public User putUserInfo(UserUpdateInfoRequest updateInfo){
-        Optional<User> updateUser=userRepository.findByEmail(updateInfo.getEmail());
+        String email= SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User> updateUser=userRepository.findByEmail(email);
 
         if(updateUser.isEmpty()){
             throw new NotFoundException("User not founded");
         }
 
-        if(! updateInfo.getEmail().isEmpty() && emailValidator.test(updateInfo.getEmail())){
-            //send confirm email
+        if(updateInfo.getEmail()!=null){
+            if(emailValidator.test(updateInfo.getEmail())){
+                //send confirm email
+                email=updateInfo.getEmail();
+            }
         }
 
-        if(!updateInfo.getUsername().isEmpty() && validateUsername(updateInfo.getUsername())){
-            updateUser.get().setUsername(updateInfo.getUsername());
+        if(updateInfo.getUsername()!=null){
+            if(validateUsername(updateInfo.getUsername())){
+                updateUser.get().setUsername(updateInfo.getUsername());
+            }
         }
 
-        if(!updateInfo.getCountry().isEmpty()){
+        if(updateInfo.getCountry()!=null){
             updateUser.get().setCountry(updateInfo.getCountry());
         }
 
-        if(!updateInfo.getPassword().isEmpty() && !updateInfo.getPasswordConfirm().isEmpty()){
+        if(updateInfo.getPassword()!=null && updateInfo.getPasswordConfirm()!=null){
             if(updateInfo.getPassword().equals(updateInfo.getPasswordConfirm())){
                 updateUser.get().setPassword(passwordEncoder.encode(updateInfo.getPassword()));
             }else{
@@ -115,7 +121,7 @@ public class UserService implements UserDetailsService {
 
         userRepository.save(updateUser.get());
 
-        return userRepository.findByEmail(updateInfo.getEmail()).get();
+        return userRepository.findByEmail(email).get();
 
     }
 
