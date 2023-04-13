@@ -208,6 +208,6 @@ public class AuthenticationService {
 
         saveUserTokenConfirmation(user.get(),jwtToken);
         emailService.send(userEmail,jwtToken);
-        
+
     }
 }
