@@ -71,6 +71,7 @@ public class AuthenticationService {
 
         var user= User.builder().username(request.getUsername())
                 .email(request.getEmail())
+                .country(request.getCountry())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(RoleUser.USER)
                 .enabled(false)
