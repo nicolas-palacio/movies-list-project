@@ -1,6 +1,7 @@
 package com.movies.movieslist.auth;
 
 
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +27,16 @@ public class AuthenticationController {
     @GetMapping("/register/confirm")
     public String confirm(@RequestParam("token") String token){
         return authenticationService.confirmToken(token);
+    }
+
+    @Operation(summary = "Send the email to confirm user account.",tags = {"Authentication"})
+    @PostMapping("/email/confirm")
+    public ResponseEntity<Object>sendConfirmationEmail(@RequestBody ObjectNode email){
+        String userEmail=email.get("email").asText();
+
+        authenticationService.resendConfirmationEmail(userEmail);
+
+        return null;
     }
 
 

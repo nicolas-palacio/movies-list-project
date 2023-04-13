@@ -8,6 +8,7 @@ import com.movies.movieslist.email.EmailService;
 import com.movies.movieslist.email.confirm_token.ConfirmationToken;
 import com.movies.movieslist.email.confirm_token.ConfirmationTokenRepository;
 import com.movies.movieslist.email.confirm_token.ConfirmationTokenService;
+import com.movies.movieslist.security.exceptions.NotFoundException;
 import com.movies.movieslist.token.Token;
 import com.movies.movieslist.token.TokenRepository;
 import com.movies.movieslist.user.RoleUser;
@@ -47,25 +48,25 @@ public class AuthenticationService {
 
     public AuthenticationResponse register(RegisterRequest request) {
         if(requestIsEmpty(request)){
-            throw new BadRequestException("All inputs are required");
+            throw new BadRequestException("All inputs are required.");
         }
 
         validateUsername(request);
 
         if(!emailValidator.test(request.getEmail())){
-            throw new BadRequestException("Invalid email or already taken");
+            throw new BadRequestException("Invalid email or already taken.");
         }
 
         if(request.getCountry().isEmpty()){
-            throw new BadRequestException("Please provide your country");
+            throw new BadRequestException("Please provide your country.");
         }
 
         if(request.getPassword().length()<8){
-            throw new BadRequestException("Minimum length is 8 characters");
+            throw new BadRequestException("Minimum length is 8 characters.");
         }
 
         if(!request.getPassword().equals(request.getPasswordConfirm())){
-            throw new BadRequestException("The passwords are different");
+            throw new BadRequestException("The passwords are different.");
         }
 
         var user= User.builder().username(request.getUsername())
@@ -93,26 +94,26 @@ public class AuthenticationService {
         Optional<User> user=userRepository.findByUsername(request.getUsername());
 
         if(!user.isEmpty()){
-            throw new BadRequestException("Username already taken");
+            throw new BadRequestException("Username already taken.");
         }
 
         if(validateUsernameLenght(request.getUsername())){
-            throw new BadRequestException("Username is too long (maximum is 15 characters)");
+            throw new BadRequestException("Username is too long (maximum is 15 characters).");
         }
 
         if(!validateUsernameChars(request.getUsername())){
-            throw new BadRequestException("Please create a username with only alphanumeric characters");
+            throw new BadRequestException("Please create a username with only alphanumeric characters.");
         }
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
         Optional<User> appUser=userRepository.findByEmail(request.getEmail());
         if(appUser.isEmpty()){
-            throw new BadRequestException("User not found");
+            throw new BadRequestException("User not found.");
         }
 
         if(!appUser.get().getEnabled()){
-            throw new ForbiddenException("Email not confirmed");
+            throw new ForbiddenException("Email not confirmed.");
         }
 
         authenticationManager.authenticate(
@@ -142,7 +143,6 @@ public class AuthenticationService {
 
     private void saveUserTokenConfirmation(User user,String jwtToken){
         var token=new ConfirmationToken(jwtToken,LocalDateTime.now(),LocalDateTime.now().plusMinutes(15),user);
-
         confirmationTokenRepository.save(token);
 
     }
@@ -152,16 +152,16 @@ public class AuthenticationService {
         ConfirmationToken confirmationToken = confirmationTokenService
                 .getToken(token)
                 .orElseThrow(() ->
-                        new IllegalStateException("token not found"));
+                        new IllegalStateException("Token not found."));
 
         if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
+            throw new IllegalStateException("Email already confirmed.");
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
 
         if (expiredAt.isBefore(LocalDateTime.now())) {
-            throw new IllegalStateException("token expired");
+            throw new IllegalStateException("Token expired.");
         }
 
         confirmationTokenService.setConfirmedAt(token);
@@ -173,7 +173,7 @@ public class AuthenticationService {
 
     public String refreshToken(){
         if(!SecurityContextHolder.getContext().getAuthentication().isAuthenticated()){
-            throw new ForbiddenException("User not authenticated");
+            throw new ForbiddenException("User not authenticated.");
         }
 
         String email= SecurityContextHolder.getContext().getAuthentication().getName();
@@ -191,5 +191,23 @@ public class AuthenticationService {
 
     private boolean validateUsernameChars(String username){
         return StringUtils.isAlphanumeric(username);
+    }
+
+    public void resendConfirmationEmail(String userEmail) {
+        Optional<User> user=userRepository.findByEmail(userEmail);
+
+        if(user.isEmpty()){
+            throw  new NotFoundException("User not found.");
+        }
+
+        if(user.get().isEnabled()){
+            throw  new IllegalStateException("User already confirmed.");
+        }
+
+        var jwtToken=jwtService.generateToken(user.get());
+
+        saveUserTokenConfirmation(user.get(),jwtToken);
+        emailService.send(userEmail,jwtToken);
+        
     }
 }
