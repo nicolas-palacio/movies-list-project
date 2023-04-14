@@ -171,7 +171,7 @@ public class EmailService {
                 "                <table border=\"0\" cellpadding=\"0\" cellspacing=\"0\" width=\"100%\" style=\"max-width: 600px;\">\n" +
                 "                    <tr>\n" +
                 "                        <td align=\"center\" valign=\"top\" style=\"padding: 36px 24px;\">\n" +
-                "                            <a href=\"https://www.MOVIES.com\" target=\"_blank\" style=\"display: inline-block;\">\n" +
+                "                            <a href=\"https://nicolas-palacio.github.io/my-movies-list/\" target=\"_blank\" style=\"display: inline-block;\">\n" +
                 "                                <img src=\"https://banner2.cleanpng.com/20190218/zse/kisspng-portable-network-graphics-film-vector-graphics-com-movie-ticket-svg-png-icon-free-download-125477-5c6b3dd11a8ac2.8354680615505320491087.jpg\"\n" +
                 "                                    alt=\"Logo\" border=\"0\" width=\"48\"\n" +
                 "                                    style=\"display: block; width: 48px; max-width: 48px; min-width: 48px;\">\n" +
