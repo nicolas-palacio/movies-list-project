@@ -14,6 +14,7 @@ public class UserUpdateInfoRequest {
 
     private String country;
 
+    private String currentPassword;
     private String password;
 
     private String passwordConfirm;

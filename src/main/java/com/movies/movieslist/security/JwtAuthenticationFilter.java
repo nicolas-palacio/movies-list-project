@@ -44,12 +44,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         jwt=authHeader.substring(7);
-        userEmail=jwtService.extractUsername(jwt);
-
         Token jwtUser= tokenRepository.findByToken(jwt).get();
         if(jwtUser.isExpired()){
-            throw new UnauthorizedException("User not logged");
+            throw new UnauthorizedException("Token expired.");
         }
+        userEmail=jwtService.extractUsername(jwt);
 
         if(userEmail !=null && SecurityContextHolder.getContext().getAuthentication()==null){
             UserDetails userDetails= this.userDetailsService.loadUserByUsername(userEmail);
