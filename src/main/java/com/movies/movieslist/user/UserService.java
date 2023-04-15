@@ -37,7 +37,7 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> appUser = userRepository.findByEmail(email);
         if(appUser==null){
-            throw new NotFoundException("User not founded");
+            throw new NotFoundException("User not founded.");
         }
 
         Collection<SimpleGrantedAuthority> authorities=new ArrayList<>();
@@ -112,11 +112,15 @@ public class UserService implements UserDetailsService {
             updateUser.get().setCountry(updateInfo.getCountry());
         }
 
+        if(updateUser.get().getPassword()!=updateInfo.getPassword()){
+            throw new BadRequestException("The current password is invalid.");
+        }
+
         if(updateInfo.getPassword()!=null && updateInfo.getPasswordConfirm()!=null){
             if(updateInfo.getPassword().equals(updateInfo.getPasswordConfirm())){
                 updateUser.get().setPassword(passwordEncoder.encode(updateInfo.getPassword()));
             }else{
-                throw new BadRequestException("The passwords are different");
+                throw new BadRequestException("The passwords are different.");
             }
         }
 
@@ -130,15 +134,15 @@ public class UserService implements UserDetailsService {
         Optional<User> user=userRepository.findByUsername(username);
 
         if(!user.isEmpty()){
-            throw new BadRequestException("Username already taken");
+            throw new BadRequestException("Username already taken.");
         }
 
         if(validateUsernameLenght(username)){
-            throw new BadRequestException("Username is too long (maximum is 15 characters)");
+            throw new BadRequestException("Username is too long (maximum is 15 characters).");
         }
 
         if(!validateUsernameChars(username)){
-            throw new BadRequestException("Username may only contain alphanumeric characters");
+            throw new BadRequestException("Username may only contain alphanumeric characters.");
         }
 
         return true;
