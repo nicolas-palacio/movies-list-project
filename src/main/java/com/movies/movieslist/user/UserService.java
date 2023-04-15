@@ -33,6 +33,8 @@ public class UserService implements UserDetailsService {
 
     private final PasswordEncoder passwordEncoder;
 
+    private final UserDetailsService userDetailsService;
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<User> appUser = userRepository.findByEmail(email);
@@ -112,7 +114,8 @@ public class UserService implements UserDetailsService {
             updateUser.get().setCountry(updateInfo.getCountry());
         }
 
-        if(updateUser.get().getPassword()!=updateInfo.getPassword()){
+
+        if(!passwordEncoder.matches(updateInfo.getCurrentPassword(),updateUser.get().getPassword())){
             throw new BadRequestException("The current password is invalid.");
         }
 
