@@ -121,6 +121,11 @@ public class UserService implements UserDetailsService {
             }
         }
 
+        if(updateInfo.getCurrentPassword()!=null && (updateInfo.getPassword().length()<8 || updateInfo.getPasswordConfirm().length()<8)){
+            throw new BadRequestException("Minimum length is 8 characters.");
+        }
+
+
         if(updateInfo.getPassword()!=null && updateInfo.getPasswordConfirm()!=null){
             if(updateInfo.getPassword().equals(updateInfo.getPasswordConfirm())){
                 updateUser.get().setPassword(passwordEncoder.encode(updateInfo.getPassword()));

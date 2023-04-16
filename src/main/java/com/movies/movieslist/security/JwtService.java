@@ -24,9 +24,9 @@ import java.util.function.Function;
 @Service
 @AllArgsConstructor
 public class JwtService {
-    private Dotenv dotenv;
+    //private Dotenv dotenv;
 
-    private TokenRepository tokenRepository;
+    private final TokenRepository tokenRepository;
 
     public String extractUsername(String token){
 
@@ -83,7 +83,7 @@ public class JwtService {
     }
 
     private Key getSignKey() {
-        dotenv = Dotenv
+        Dotenv dotenv = Dotenv
                 .configure()
                 .filename("env.properties")
                 .load();
