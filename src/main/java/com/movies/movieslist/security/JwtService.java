@@ -1,12 +1,17 @@
 package com.movies.movieslist.security;
 
 
+import com.movies.movieslist.security.exceptions.UnauthorizedException;
+import com.movies.movieslist.token.Token;
+import com.movies.movieslist.token.TokenRepository;
 import io.github.cdimascio.dotenv.Dotenv;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -17,8 +22,12 @@ import java.util.Map;
 import java.util.function.Function;
 
 @Service
+@AllArgsConstructor
 public class JwtService {
     private Dotenv dotenv;
+
+    private TokenRepository tokenRepository;
+
     public String extractUsername(String token){
 
         return exctractClaim(token,Claims::getSubject);
@@ -62,7 +71,14 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token){
-        return Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+        Claims claims=null;
+        try{
+            claims=Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+        }catch(io.jsonwebtoken.ExpiredJwtException e){
+            tokenRepository.findByToken(token).get().setExpired(true);
+            throw new UnauthorizedException("Token expired.");
+        }
+        return claims;
 
     }
 

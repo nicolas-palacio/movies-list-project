@@ -98,10 +98,10 @@ public class UserService implements UserDetailsService {
         }
 
         if(updateInfo.getEmail()!=null){
-            if(emailValidator.test(updateInfo.getEmail())){
-                //send confirm email
+            /*if(emailValidator.test(updateInfo.getEmail())){
+                //TO DO send confirm email
                 email=updateInfo.getEmail();
-            }
+            }*/
         }
 
         if(updateInfo.getUsername()!=null){
@@ -115,8 +115,10 @@ public class UserService implements UserDetailsService {
         }
 
 
-        if(!passwordEncoder.matches(updateInfo.getCurrentPassword(),updateUser.get().getPassword())){
-            throw new BadRequestException("The current password is invalid.");
+        if(updateInfo.getCurrentPassword()!=null){
+            if(!passwordEncoder.matches(updateInfo.getCurrentPassword(),updateUser.get().getPassword())){
+                throw new BadRequestException("The current password is invalid.");
+            }
         }
 
         if(updateInfo.getPassword()!=null && updateInfo.getPasswordConfirm()!=null){
