@@ -31,6 +31,7 @@ public class EmailService {
             helper.setSubject("Confirm your email");
             helper.setFrom("themovieslists@gmail.com");
             mailSender.send(mimeMessage);
+            this.LINK="http://localhost:5500/confirmation-page.html?token=";
 
         }catch (MessagingException e){
             LOGGER.error("failed to send email",e);

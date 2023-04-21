@@ -81,6 +81,7 @@ public class AuthenticationService {
         var jwtToken=jwtService.generateToken(user);
 
         saveUserTokenConfirmation(savedUser,jwtToken);
+
         emailService.send(request.getEmail(),jwtToken);
 
         return AuthenticationResponse.builder().token(jwtToken).build();
