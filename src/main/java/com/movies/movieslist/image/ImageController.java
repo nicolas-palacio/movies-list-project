@@ -4,6 +4,10 @@ import com.movies.movieslist.image.util.SaveResult;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -16,8 +20,19 @@ public class ImageController {
 
     private final ImageService imageService;
 
-    @Operation(summary = "Post the user's profile picture.",tags = {"User"})
-    @PostMapping()
+    @Operation(summary = "Get the user's profile picture.",tags = {"Image"})
+    @GetMapping
+    @ResponseBody
+    public ResponseEntity<Resource> getImage(@RequestParam("filename") String filename){
+        var image= imageService.getImage(filename);
+        var body=new ByteArrayResource(image.getData());
+
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE,image.getMimeType()).body(body);
+    }
+
+
+    @Operation(summary = "Post the user's profile picture.",tags = {"Image"})
+    @PostMapping
     @ResponseBody
     public SaveResult upload(@RequestPart MultipartFile file){
         try{
@@ -37,6 +52,6 @@ public class ImageController {
     }
 
     private String crateImageLink(String filename) {
-        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/v1/images/db/"+filename).toUriString();
+        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/v1/user/image/"+filename).toUriString();
     }
 }
