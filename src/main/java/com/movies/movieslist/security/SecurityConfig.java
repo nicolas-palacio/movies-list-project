@@ -41,7 +41,7 @@ public class SecurityConfig {
         .csrf()
         .disable()
         .authorizeHttpRequests()
-                 .requestMatchers(POST,"/api/v1/auth/**","/api/v1/user/image").permitAll()
+                 .requestMatchers(POST,"/api/v1/auth/**").permitAll()
                  .requestMatchers(GET,"/api-docs","/api-docs/**").permitAll()
                  .requestMatchers(GET,"/movie-list-api.html","/swagger-ui/**").permitAll()
                  .requestMatchers(GET,"/api/v1/user/image").permitAll()

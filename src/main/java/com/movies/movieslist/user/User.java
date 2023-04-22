@@ -1,5 +1,6 @@
 package com.movies.movieslist.user;
 
+import com.movies.movieslist.image.Image;
 import com.movies.movieslist.movie.Movie;
 import com.movies.movieslist.token.Token;
 import jakarta.persistence.*;
@@ -43,6 +44,10 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    private Image image;
 
 
     private Boolean enabled=false;

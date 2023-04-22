@@ -1,6 +1,7 @@
 package com.movies.movieslist.image;
 
 
+import com.movies.movieslist.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,4 +21,7 @@ public class Image {
     private String mimeType;
 
     private byte[] data;
+    @OneToOne(mappedBy = "image")
+    private User user;
+
 }

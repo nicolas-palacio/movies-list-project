@@ -52,6 +52,6 @@ public class ImageController {
     }
 
     private String crateImageLink(String filename) {
-        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/v1/user/image/"+filename).toUriString();
+        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/v1/user/image?filename="+filename).toUriString();
     }
 }
