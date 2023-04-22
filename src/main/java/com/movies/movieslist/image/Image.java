@@ -1,9 +1,7 @@
 package com.movies.movieslist.image;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Data
@@ -15,6 +13,7 @@ import lombok.*;
 @Getter
 public class Image {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String filename;
 

@@ -17,7 +17,7 @@ public class ImageController {
     private final ImageService imageService;
 
     @Operation(summary = "Post the user's profile picture.",tags = {"User"})
-    @PostMapping("/movie")
+    @PostMapping()
     @ResponseBody
     public SaveResult upload(@RequestPart MultipartFile file){
         try{
@@ -37,6 +37,6 @@ public class ImageController {
     }
 
     private String crateImageLink(String filename) {
-        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/images/db"+filename).toUriString();
+        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/api/v1/images/db/"+filename).toUriString();
     }
 }
