@@ -5,6 +5,8 @@ import com.movies.movieslist.user.User;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -21,7 +23,7 @@ public class Image {
     private String mimeType;
 
     private byte[] data;
-    @OneToOne(mappedBy = "image")
-    private User user;
+    @OneToMany(mappedBy = "image")
+    private List<User> users;
 
 }

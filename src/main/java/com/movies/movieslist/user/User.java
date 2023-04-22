@@ -45,10 +45,9 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Token> tokens;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "image_id", referencedColumnName = "id")
+    @ManyToOne
+    @JoinColumn(name="image_id")
     private Image image;
-
 
     private Boolean enabled=false;
 
