@@ -61,8 +61,6 @@ public class UserService implements UserDetailsService {
                     user.get().getMovies(),user.get().getHoursViewed(),user.get().getImage().getFilename());
         }
 
-
-
         return userInfo;
     }
 
@@ -91,10 +89,12 @@ public class UserService implements UserDetailsService {
 
         if(savedMovie.isEmpty()){
             movieRepository.save(movie);
-            user.get().getMovies().add(movie);
-            user.get().setHoursViewed(user.get().getHoursViewed()+movie.getDuration());
-            userRepository.save(user.get());
         }
+        
+        user.get().getMovies().add(movie);
+        user.get().setHoursViewed(user.get().getHoursViewed()+movie.getDuration());
+        userRepository.save(user.get());
+
         return movie;
     }
 
@@ -104,6 +104,7 @@ public class UserService implements UserDetailsService {
         Optional<Movie> savedMovie=movieRepository.findById(movieID);
 
         user.get().getMovies().remove(savedMovie.get());
+        user.get().setHoursViewed(user.get().getHoursViewed()-savedMovie.get().getDuration());
         userRepository.save(user.get());
 
         return  savedMovie.get();
