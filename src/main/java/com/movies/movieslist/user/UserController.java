@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @Operation(summary = "Post a movie on the list of the user.",tags = {"User"})
-    @PostMapping("/add-movie")
+    @PostMapping("/movie")
     @ResponseBody
     public ResponseEntity<Movie> addMovieToUser(@RequestBody Movie movie){
         Movie movieToAdd=null;
@@ -49,6 +49,14 @@ public class UserController {
        }
 
         return new ResponseEntity<>(movieToAdd,HttpStatus.OK);
+    }
+
+    @Operation(summary = "Delete a movie on the list of the user.",tags = {"User"})
+    @DeleteMapping("/movie")
+    @ResponseBody
+    public ResponseEntity<Movie> removeUserMovie(@RequestParam("id") Long movieID){
+
+        return new ResponseEntity<>(userService.deleteUserMovie(movieID),HttpStatus.OK);
     }
 
     @Operation(summary = "Update the info of the user.",tags = {"User"})

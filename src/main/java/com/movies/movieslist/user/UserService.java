@@ -89,6 +89,18 @@ public class UserService implements UserDetailsService {
         return movie;
     }
 
+    public Movie deleteUserMovie(Long movieID){
+        String email= SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User> user=userRepository.findByEmail(email);
+        Optional<Movie> savedMovie=movieRepository.findById(movieID);
+
+        user.get().getMovies().remove(savedMovie.get());
+        userRepository.save(user.get());
+
+        return  savedMovie.get();
+
+    }
+
     public User putUserInfo(UserUpdateInfoRequest updateInfo){
         String email= SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> updateUser=userRepository.findByEmail(email);
