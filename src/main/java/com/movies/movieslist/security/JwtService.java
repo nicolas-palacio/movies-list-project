@@ -70,12 +70,14 @@ public class JwtService {
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
-    private Claims extractAllClaims(String token){
+    private Claims extractAllClaims(String jwt){
         Claims claims=null;
         try{
-            claims=Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token).getBody();
+            claims=Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(jwt).getBody();
         }catch(io.jsonwebtoken.ExpiredJwtException e){
-            tokenRepository.findByToken(token).get().setExpired(true);
+            Token token=tokenRepository.findByToken(jwt).get();
+            token.setExpired(true);
+            tokenRepository.save(token);
             throw new UnauthorizedException("Token expired.");
         }
         return claims;
