@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/api/v1/user/image")
@@ -24,16 +25,18 @@ public class ImageController {
             return SaveResult.builder()
                     .error(false)
                     .filename(image.getFilename())
-                    .link(crateImageLink(image.getFilename().toString()))
+                    .link(crateImageLink(image.getFilename()))
                     .build();
             
         }catch(Exception e){
+            log.error("Failed to save image",e);
+            return SaveResult.builder().error(true).filename(file.getOriginalFilename()).build();
             
         }
         
     }
 
-    private Object crateImageLink(String filename) {
-        return null;
+    private String crateImageLink(String filename) {
+        return ServletUriComponentsBuilder.fromCurrentRequest().replacePath("/images/db"+filename).toUriString();
     }
 }
