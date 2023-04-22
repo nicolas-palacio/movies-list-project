@@ -21,7 +21,7 @@ public class ImageService {
                 .data(file.getBytes())
                 .build();
 
-        return image;
+        return imageRepository.save(image);
     }
 
 }
