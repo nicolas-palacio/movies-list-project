@@ -21,4 +21,6 @@ public class UserInfoResponse {
 
     private float hoursViewed;
 
+    private String imageFilename;
+
 }
