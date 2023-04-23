@@ -18,7 +18,7 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final static Logger LOGGER= LoggerFactory.getLogger(EmailService.class);
 
-    private static String LINK="http://localhost:5500/confirmation-page.html?token=";//"http://localhost:8888/api/v1/registration/confirm?token=";
+    private static String LINK="http://localhost:5500/confirmation-page.html?token=";
 
     @Async
     public void send(String to,String token){
