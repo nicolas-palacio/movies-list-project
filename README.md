@@ -5,18 +5,18 @@
 
 ## 🎬 About
 
-REST API used in [My Movies List](https://nicolas-palacio.github.io/my-movies-list/) . Includes the CRUD for User and Movies.
+REST API used in [My Movies List](https://nicolas-palacio.github.io/my-movies-list/) . Includes the CRUD for User and Movies, JWT filter to every Http request, security config to handle the endpoints access.
 
 ## 👾 Tech Stack
 
 - Framework: Spring Boot (includes Spring Security 6.0).
 - Language: Java 17.
 - Database : PostgreSQL 15.2v.
-- Hosting plataform: Heroku.
+- Hosting platform: Heroku.
 
 ## Swagger documentation 📃
 
-[Check the doc for details.](https://pp1-iot.herokuapp.com/iot-api.html)
+[Check the doc for details.](https://my-movies-list.herokuapp.com/swagger-ui/index.html#/)
 
 ## ✅ Features
 
