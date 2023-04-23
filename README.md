@@ -3,7 +3,7 @@
   <h1>My Movies List 1.0</h1>
 </div>
 
-## About 🎬
+## 🎬 About
 
 REST API used in [My Movies List](https://nicolas-palacio.github.io/my-movies-list/) . Includes the CRUD for User and Movies.
 
