@@ -12,6 +12,7 @@ REST API used in [My Movies List](https://nicolas-palacio.github.io/my-movies-li
 - Framework: Spring Boot (includes Spring Security 6.0).
 - Language: Java 17.
 - Database : PostgreSQL 15.2v.
+- ORM: JPA/Hibernate.
 - Hosting platform: Heroku.
 
 ## 📃 Swagger documentation
