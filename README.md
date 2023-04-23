@@ -5,7 +5,7 @@
 
 ## 🎬 About
 
-REST API used in [My Movies List](https://nicolas-palacio.github.io/my-movies-list/) . Includes the CRUD for User and Movies, JWT filter to every Http request, security config to handle the endpoints access.
+REST API used in [My Movies List](https://nicolas-palacio.github.io/my-movies-list/) . Includes the CRUD for User and Movies, JWT filter to every Http request, security config to handle the endpoints accesses.
 
 ## 👾 Tech Stack
 
@@ -14,7 +14,7 @@ REST API used in [My Movies List](https://nicolas-palacio.github.io/my-movies-li
 - Database : PostgreSQL 15.2v.
 - Hosting platform: Heroku.
 
-## Swagger documentation 📃
+## 📃 Swagger documentation
 
 [Check the doc for details.](https://my-movies-list.herokuapp.com/swagger-ui/index.html#/)
 
