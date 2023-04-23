@@ -91,7 +91,7 @@ public class JwtService {
                 .load();
         String secret_key=System.getenv("SECRET_KEY");
 
-        byte[] keyBytes= Decoders.BASE64.decode(dotenv.get("SECRET_KEY").toString());
+        byte[] keyBytes= Decoders.BASE64.decode(secret_key);
 
         return Keys.hmacShaKeyFor(keyBytes);
     }
