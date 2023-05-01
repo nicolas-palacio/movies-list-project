@@ -1,6 +1,8 @@
 package com.movies.movieslist.user.util;
 
 import com.movies.movieslist.movie.Movie;
+import com.movies.movieslist.user.User;
+import jakarta.annotation.Nullable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +23,14 @@ public class UserInfoResponse {
 
     private float hoursViewed;
 
+    @Nullable
     private String imageFilename;
+
+
+    @Nullable
+    private List<User> followers;
+
+    @Nullable
+    public List<User> following;
 
 }

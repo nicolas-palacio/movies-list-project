@@ -30,6 +30,15 @@ public class UserController {
         return  new ResponseEntity<>(userInfo,HttpStatus.OK);
     }
 
+    @Operation(summary = "Return the info of the user searched.",tags = {"User"})
+    @GetMapping("/search")
+    @ResponseBody
+    public ResponseEntity<UserInfoResponse> searchUser(){
+        UserInfoResponse userInfo=userService.getUserInfo();
+
+        return  new ResponseEntity<>(userInfo,HttpStatus.OK);
+    }
+
 
     @Operation(summary = "Return the list of movies of the user.",tags = {"User"})
     @GetMapping("/list")
