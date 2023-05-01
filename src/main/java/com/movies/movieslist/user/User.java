@@ -45,6 +45,11 @@ public class User implements UserDetails {
     @JoinTable(name = "user_followers", joinColumns = @JoinColumn(name="user_email", referencedColumnName = "email"),
             inverseJoinColumns = @JoinColumn(name = "user_follow",referencedColumnName = "id"))
     private List<User> followers;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_following", joinColumns = @JoinColumn(name="user_email", referencedColumnName = "email"),
+            inverseJoinColumns = @JoinColumn(name = "user_following",referencedColumnName = "id"))
+    private List<User> followings;
     private float hoursViewed;
 
     @OneToMany(mappedBy = "user")

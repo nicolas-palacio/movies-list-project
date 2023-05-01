@@ -55,7 +55,7 @@ public class UserService implements UserDetailsService {
 
         if(user.get().getImage()==null){
             userInfo=new UserInfoResponse(user.get().getUserAuthName(),user.get().getEmail(),user.get().getCountry(),
-                    user.get().getMovies(),user.get().getHoursViewed(),null,user.get().getFollowers(),null);
+                    user.get().getMovies(),user.get().getHoursViewed(),null,user.get().getFollowers(),user.get().get);
         }else{
             userInfo=new UserInfoResponse(user.get().getUserAuthName(),user.get().getEmail(),user.get().getCountry(),
                     user.get().getMovies(),user.get().getHoursViewed(),user.get().getImage().getFilename(),user.get().getFollowers(),null);
