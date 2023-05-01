@@ -32,7 +32,6 @@ public class EmailService {
             helper.setSubject("Confirm your email");
             helper.setFrom("themovieslists@gmail.com");
             mailSender.send(mimeMessage);
-           
 
         }catch (MessagingException e){
             LOGGER.error("failed to send email",e);

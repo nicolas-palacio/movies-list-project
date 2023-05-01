@@ -88,12 +88,12 @@ public class UserService implements UserDetailsService {
             throw new NotFoundException("User not found.");
         }
 
-        if(user.get().getUsername().equals(userToFollow)){
-            throw new BadRequestException("User can not follow itself.");
-        }
-
         String email= SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> userLogged=userRepository.findByEmail(email);
+
+        if(userLogged.get().getUsername().equals(userToFollow)){
+            throw new BadRequestException("User can not follow itself.");
+        }
 
         user.get().getFollowers().add(userLogged.get());
 
