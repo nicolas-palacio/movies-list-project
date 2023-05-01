@@ -16,6 +16,7 @@ public class UserInfoResponse {
 
     private String username;
 
+    @Nullable
     private String email;
 
     private String country;

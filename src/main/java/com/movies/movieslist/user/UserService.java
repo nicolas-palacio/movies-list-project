@@ -55,10 +55,10 @@ public class UserService implements UserDetailsService {
 
         if(user.get().getImage()==null){
             userInfo=new UserInfoResponse(user.get().getUserAuthName(),user.get().getEmail(),user.get().getCountry(),
-                    user.get().getMovies(),user.get().getHoursViewed(),null,user.get().getFollowers(),user.get().get);
+                    user.get().getMovies(),user.get().getHoursViewed(),null,user.get().getFollowers(),user.get().getFollowings());
         }else{
             userInfo=new UserInfoResponse(user.get().getUserAuthName(),user.get().getEmail(),user.get().getCountry(),
-                    user.get().getMovies(),user.get().getHoursViewed(),user.get().getImage().getFilename(),user.get().getFollowers(),null);
+                    user.get().getMovies(),user.get().getHoursViewed(),user.get().getImage().getFilename(),user.get().getFollowers(),user.get().getFollowings());
         }
 
         return userInfo;
@@ -107,8 +107,10 @@ public class UserService implements UserDetailsService {
         }
 
         user.get().getFollowers().add(userLogged.get());
+        userLogged.get().getFollowings().add(user.get());
 
         userRepository.save(user.get());
+        userRepository.save(userLogged.get());
 
         return user.get();
 
