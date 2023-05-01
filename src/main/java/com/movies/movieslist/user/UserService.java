@@ -82,6 +82,22 @@ public class UserService implements UserDetailsService {
         return userRepository.enableAppUser(email);
     }
 
+    public User followUser(User userToFollow){
+        Optional<User> user=userRepository.findByUsername(userToFollow.getUsername());
+        if(user.isEmpty()){
+            throw new NotFoundException("User not found.");
+        }
+
+        String email= SecurityContextHolder.getContext().getAuthentication().getName();
+        Optional<User> userLogged=userRepository.findByEmail(email);
+
+        user.get().getFollowers().add(userLogged.get());
+
+        userRepository.save(user.get());
+
+        return user.get();
+
+    }
     public Movie addMovieToUser(Movie movie){
         String email= SecurityContextHolder.getContext().getAuthentication().getName();
         Optional<User> user=userRepository.findByEmail(email);

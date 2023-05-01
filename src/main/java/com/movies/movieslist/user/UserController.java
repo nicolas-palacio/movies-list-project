@@ -51,6 +51,15 @@ public class UserController {
         return new ResponseEntity<>(movieToAdd,HttpStatus.OK);
     }
 
+    @Operation(summary = "Follow a user.",tags = {"User"})
+    @PostMapping("/follow")
+    @ResponseBody
+    public ResponseEntity<User> followUser(@RequestBody User user){
+        User userFollow=userService.followUser(user);
+
+        return new ResponseEntity<>(userFollow,HttpStatus.OK);
+    }
+
     @Operation(summary = "Delete a movie on the list of the user.",tags = {"User"})
     @DeleteMapping("/movie")
     @ResponseBody
