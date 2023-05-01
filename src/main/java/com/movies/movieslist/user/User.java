@@ -40,6 +40,11 @@ public class User implements UserDetails {
     @JoinTable(name = "user_movies", joinColumns = @JoinColumn(name="user_email", referencedColumnName = "email"),
             inverseJoinColumns = @JoinColumn(name = "movie_id",referencedColumnName = "id"))
     private List<Movie> movies= new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_followers", joinColumns = @JoinColumn(name="user_email", referencedColumnName = "email"),
+            inverseJoinColumns = @JoinColumn(name = "user_follow",referencedColumnName = "id"))
+    private List<User> followers;
     private float hoursViewed;
 
     @OneToMany(mappedBy = "user")
