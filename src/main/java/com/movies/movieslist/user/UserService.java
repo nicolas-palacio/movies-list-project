@@ -82,8 +82,8 @@ public class UserService implements UserDetailsService {
         return userRepository.enableAppUser(email);
     }
 
-    public User followUser(User userToFollow){
-        Optional<User> user=userRepository.findByUsername(userToFollow.getUsername());
+    public User followUser(String userToFollow){
+        Optional<User> user=userRepository.findByUsername(userToFollow);
         if(user.isEmpty()){
             throw new NotFoundException("User not found.");
         }
