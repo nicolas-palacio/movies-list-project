@@ -78,7 +78,9 @@ public class JwtService {
             Token token=tokenRepository.findByToken(jwt).get();
             token.setExpired(true);
             tokenRepository.save(token);
-            throw new UnauthorizedException("Token expired.");
+            claims=Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(jwt).getBody();
+            //throw new UnauthorizedException("Token expired.");
+            return claims;
         }
         return claims;
 
