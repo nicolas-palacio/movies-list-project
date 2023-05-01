@@ -23,15 +23,16 @@ public class EmailService {
     @Async
     public void send(String to,String token){
         try{
+            this.LINK="http://localhost:5500/confirmation-page.html?token=";
             MimeMessage mimeMessage= mailSender.createMimeMessage();
             MimeMessageHelper helper= new MimeMessageHelper(mimeMessage,"utf-8");
-            this.LINK+=""+token;
+            this.LINK+=token;
             helper.setText(buildEmailConfirmAccount(this.LINK),true);
             helper.setTo(to);
             helper.setSubject("Confirm your email");
             helper.setFrom("themovieslists@gmail.com");
             mailSender.send(mimeMessage);
-            this.LINK="http://localhost:5500/confirmation-page.html?token=";
+           
 
         }catch (MessagingException e){
             LOGGER.error("failed to send email",e);
