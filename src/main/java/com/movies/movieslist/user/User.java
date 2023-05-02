@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.movies.movieslist.image.Image;
 import com.movies.movieslist.movie.Movie;
 import com.movies.movieslist.token.Token;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -63,6 +64,7 @@ public class User implements UserDetails {
 
     @ManyToOne
     @JoinColumn(name="image_id")
+    @Nullable
     private Image image;
 
     private Boolean enabled=false;

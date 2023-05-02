@@ -34,8 +34,8 @@ public class UserController {
     @Operation(summary = "Return the info of the user searched.",tags = {"User"})
     @GetMapping("/search")
     @ResponseBody
-    public ResponseEntity<UserInfoResponse> searchUser(){
-        UserInfoResponse userInfo=userService.getUserInfo();
+    public ResponseEntity<UserInfoResponse> searchUser(@RequestParam("username") String username){
+        UserInfoResponse userInfo=userService.searchUser(username);
 
         return  new ResponseEntity<>(userInfo,HttpStatus.OK);
     }

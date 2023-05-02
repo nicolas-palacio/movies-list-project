@@ -80,9 +80,10 @@ public class UserService implements UserDetailsService {
         if(user.isEmpty()){
             throw new NotFoundException("User not found.");
         }
+        UserInfoResponse userInfoResponse=new UserInfoResponse(user.get().getUserAuthName(),null,user.get().getCountry(),user.get().getMovies(),user.get().getHoursViewed(),
+                user.get().getImage().getFilename(),userToInfoResponse(user.get().getFollowers()),userToInfoResponse(user.get().getFollowings()));
 
-        return null;
-
+        return userInfoResponse;
     }
 
     public List<Movie> getUserMovies(){
