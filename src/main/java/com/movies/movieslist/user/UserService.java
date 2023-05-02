@@ -55,13 +55,23 @@ public class UserService implements UserDetailsService {
 
         if(user.get().getImage()==null){
             userInfo=new UserInfoResponse(user.get().getUserAuthName(),user.get().getEmail(),user.get().getCountry(),
-                    user.get().getMovies(),user.get().getHoursViewed(),null,user.get().getFollowers(),user.get().getFollowings());
+                    user.get().getMovies(),user.get().getHoursViewed(),null,userToInfoResponse(user.get().getFollowers()),userToInfoResponse(user.get().getFollowings()));
         }else{
             userInfo=new UserInfoResponse(user.get().getUserAuthName(),user.get().getEmail(),user.get().getCountry(),
-                    user.get().getMovies(),user.get().getHoursViewed(),user.get().getImage().getFilename(),user.get().getFollowers(),user.get().getFollowings());
+                    user.get().getMovies(),user.get().getHoursViewed(),user.get().getImage().getFilename(),userToInfoResponse(user.get().getFollowers()),userToInfoResponse(user.get().getFollowings()));
         }
 
         return userInfo;
+    }
+
+    private List<UserInfoResponse> userToInfoResponse(List<User>users){
+        List<UserInfoResponse> userInfoResponses=new ArrayList<>();
+        for(User user:users){
+            UserInfoResponse userInfoResponse=new UserInfoResponse(user.getUsername(),null,user.getCountry(),null,user.getHoursViewed(),null,null,null);
+            userInfoResponses.add(userInfoResponse);
+        }
+
+        return userInfoResponses;
     }
 
     public UserInfoResponse searchUser(String username){
@@ -109,8 +119,8 @@ public class UserService implements UserDetailsService {
         user.get().getFollowers().add(userLogged.get());
         userLogged.get().getFollowings().add(user.get());
 
-        userRepository.save(user.get());
-        userRepository.save(userLogged.get());
+        userRepository.saveAll(List.of(user.get(),userLogged.get()));
+        //userRepository.save(userLogged.get());
 
         return user.get();
 

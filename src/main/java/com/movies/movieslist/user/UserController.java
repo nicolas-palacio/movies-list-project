@@ -1,5 +1,6 @@
 package com.movies.movieslist.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.movies.movieslist.movie.Movie;
 import com.movies.movieslist.user.util.UserInfoResponse;
@@ -64,10 +65,10 @@ public class UserController {
     @Operation(summary = "Follow a user.",tags = {"User"})
     @PostMapping("/follow")
     @ResponseBody
-    public ResponseEntity<User> followUser(@RequestBody ObjectNode username){
+    public ResponseEntity<HttpStatus> followUser(@RequestBody ObjectNode username){
         User userFollow=userService.followUser(username.get("username").asText());
 
-        return new ResponseEntity<User>(userFollow,HttpStatus.OK);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @Operation(summary = "Delete a movie on the list of the user.",tags = {"User"})

@@ -1,5 +1,7 @@
 package com.movies.movieslist.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.movies.movieslist.image.Image;
 import com.movies.movieslist.movie.Movie;
 import com.movies.movieslist.token.Token;
@@ -44,11 +46,15 @@ public class User implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_followers", joinColumns = @JoinColumn(name="user_email", referencedColumnName = "email"),
             inverseJoinColumns = @JoinColumn(name = "user_follow",referencedColumnName = "id"))
+    @JsonIgnore
+    @JsonManagedReference
     private List<User> followers;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_following", joinColumns = @JoinColumn(name="user_email", referencedColumnName = "email"),
             inverseJoinColumns = @JoinColumn(name = "user_following",referencedColumnName = "id"))
+    @JsonIgnore
+    //@JsonManagedReference
     private List<User> followings;
     private float hoursViewed;
 

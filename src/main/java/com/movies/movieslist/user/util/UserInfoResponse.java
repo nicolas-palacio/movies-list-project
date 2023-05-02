@@ -29,9 +29,9 @@ public class UserInfoResponse {
 
 
     @Nullable
-    private List<User> followers;
+    private List<UserInfoResponse> followers;
 
     @Nullable
-    public List<User> following;
+    public List<UserInfoResponse> following;
 
 }
