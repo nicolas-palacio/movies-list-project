@@ -23,7 +23,7 @@ public class EmailService {
     @Async
     public void send(String to,String token){
         try{
-            this.LINK="http://localhost:5500/confirmation-page.html?token=";
+            this.LINK="https://nicolas-palacio.github.io/my-movies-list/confirmation-page.html?token=";
             MimeMessage mimeMessage= mailSender.createMimeMessage();
             MimeMessageHelper helper= new MimeMessageHelper(mimeMessage,"utf-8");
             this.LINK+=token;
