@@ -6,6 +6,7 @@ import com.movies.movieslist.movie.Movie;
 import com.movies.movieslist.user.util.UserInfoResponse;
 import com.movies.movieslist.user.util.UserUpdateInfoRequest;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -41,7 +42,7 @@ public class UserController {
     }
 
 
-    @Operation(summary = "Return the list of movies of the user.",tags = {"User"})
+    @Operation(summary = "Return the list of movies of the user.",tags = {"User"},security = {@SecurityRequirement(name="BearerJWT")})
     @GetMapping("/list")
     @ResponseBody
     public ResponseEntity<List<Movie>> getUserList(){
@@ -50,7 +51,7 @@ public class UserController {
         return  new ResponseEntity<>(userMovies,HttpStatus.OK);
     }
 
-    @Operation(summary = "Post a movie on the list of the user.",tags = {"User"})
+    @Operation(summary = "Post a movie on the list of the user.",tags = {"User"},security = {@SecurityRequirement(name="BearerJWT")})
     @PostMapping("/movie")
     @ResponseBody
     public ResponseEntity<Movie> addMovieToUser(@RequestBody Movie movie){
@@ -62,7 +63,7 @@ public class UserController {
         return new ResponseEntity<>(movieToAdd,HttpStatus.OK);
     }
 
-    @Operation(summary = "Follow a user.",tags = {"User"})
+    @Operation(summary = "Follow a user.",tags = {"User"},security = {@SecurityRequirement(name="BearerJWT")})
     @PostMapping("/follow")
     @ResponseBody
     public ResponseEntity<HttpStatus> followUser(@RequestBody ObjectNode username){
@@ -71,7 +72,7 @@ public class UserController {
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    @Operation(summary = "Delete a movie on the list of the user.",tags = {"User"})
+    @Operation(summary = "Delete a movie on the list of the user.",tags = {"User"},security = {@SecurityRequirement(name="BearerJWT")})
     @DeleteMapping("/movie")
     @ResponseBody
     public ResponseEntity<Movie> removeUserMovie(@RequestParam("id") Long movieID){
@@ -79,7 +80,7 @@ public class UserController {
         return new ResponseEntity<>(userService.deleteUserMovie(movieID),HttpStatus.OK);
     }
 
-    @Operation(summary = "Update the info of the user.",tags = {"User"})
+    @Operation(summary = "Update the info of the user.",tags = {"User"},security = {@SecurityRequirement(name="BearerJWT")})
     @PutMapping
     @ResponseBody
     public ResponseEntity<UserInfoResponse> putUser(@RequestBody UserUpdateInfoRequest userUpdateInfoRequest){

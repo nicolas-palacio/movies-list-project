@@ -2,6 +2,7 @@ package com.movies.movieslist.image;
 
 import com.movies.movieslist.image.util.SaveResult;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.core.io.ByteArrayResource;
@@ -31,7 +32,7 @@ public class ImageController {
     }
 
 
-    @Operation(summary = "Post the user's profile picture.",tags = {"Image"})
+    @Operation(summary = "Post the user's profile picture.",tags = {"Image"},security = {@SecurityRequirement(name="BearerJWT")})
     @PostMapping
     @ResponseBody
     public SaveResult upload(@RequestPart MultipartFile file){
