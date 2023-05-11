@@ -3,6 +3,7 @@ package com.movies.movieslist.auth;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +24,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.register(request));
     }
 
-    @Operation(summary = "Confirm the registration of the user.",tags = {"Authentication"})
+    @Operation(summary = "Confirm the registration of the user.",tags = {"Authentication"},security = {@SecurityRequirement(name="BearerJWT")})
     @GetMapping("/register/confirm")
     public String confirm(@RequestParam("token") String token){
         return authenticationService.confirmToken(token);
@@ -47,7 +48,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(authenticationService.authenticate(request));
     }
 
-    @Operation(summary = "Refresh the token of an user already authenticated.",tags = {"Authentication"})
+    @Operation(summary = "Refresh the token of an user already authenticated.",tags = {"Authentication"},security = {@SecurityRequirement(name="BearerJWT")})
     @GetMapping("/token/refresh")
     public ResponseEntity<String> refreshToken(){
 
