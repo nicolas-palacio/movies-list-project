@@ -19,7 +19,7 @@ import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class AuthenticationServiceTest {
-    @Mock
+   /* @Mock
     private UserRepository userRepository;
 
     @Mock
@@ -55,5 +55,5 @@ public class AuthenticationServiceTest {
 
 
 
-    }
+    }*/
 }

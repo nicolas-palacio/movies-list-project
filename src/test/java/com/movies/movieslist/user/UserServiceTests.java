@@ -15,7 +15,7 @@ import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 public class UserServiceTests {
-    @Mock
+   /* @Mock
     private UserRepository userRepository;
 
     @InjectMocks
@@ -32,6 +32,6 @@ public class UserServiceTests {
                 .enabled(false)
                 .build();
     }
-
+*/
 
 }

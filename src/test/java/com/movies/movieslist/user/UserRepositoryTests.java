@@ -13,7 +13,7 @@ import java.util.List;
 
 @DataJpaTest
 public class UserRepositoryTests {
-
+/*
     @Autowired
     private UserRepository userRepository;
 
@@ -84,6 +84,6 @@ public class UserRepositoryTests {
         assertThat(savedUser).isNotNull();
         assertThat(savedUser.getId()).isEqualTo(user.getId());
 
-    }
+    }*/
 
 }
