@@ -87,10 +87,10 @@ public class JwtService {
     }
 
     private Key getSignKey() {
-        Dotenv dotenv = Dotenv
+        /*Dotenv dotenv = Dotenv
                 .configure()
                 .filename("env.properties")
-                .load();
+                .load();*/
         //dotenv.get("SECRET_KEY").toString()
         String secret_key=System.getenv("SECRET_KEY");
 
