@@ -76,12 +76,20 @@ public class UserService implements UserDetailsService {
 
     public UserInfoResponse searchUser(String username){
         Optional<User> user=userRepository.findByUsername(username);
-
+        UserInfoResponse userInfoResponse=null;
         if(user.isEmpty()){
             throw new NotFoundException("User not found.");
         }
-        UserInfoResponse userInfoResponse=new UserInfoResponse(user.get().getUserAuthName(),null,user.get().getCountry(),user.get().getMovies(),user.get().getHoursViewed(),
-                user.get().getImage().getFilename(),userToInfoResponse(user.get().getFollowers()),userToInfoResponse(user.get().getFollowings()));
+
+        if(user.get().getImage()==null){
+            userInfoResponse=new UserInfoResponse(user.get().getUserAuthName(),null,user.get().getCountry(),user.get().getMovies(),user.get().getHoursViewed(),
+                    null,userToInfoResponse(user.get().getFollowers()),userToInfoResponse(user.get().getFollowings()));
+
+        }else{
+            userInfoResponse=new UserInfoResponse(user.get().getUserAuthName(),null,user.get().getCountry(),user.get().getMovies(),user.get().getHoursViewed(),
+                    user.get().getImage().getFilename(),userToInfoResponse(user.get().getFollowers()),userToInfoResponse(user.get().getFollowings()));
+
+        }
 
         return userInfoResponse;
     }
